@@ -10,7 +10,7 @@ function UserDB() {
   const connectToMongoDB = async () => {
     const client = new MongoClient(uri);
     await client.connect();
-    const db = client.db("DrinkCrafter");
+    const db = client.db("DrinkOasis");
 
     return { client, db };
   };
