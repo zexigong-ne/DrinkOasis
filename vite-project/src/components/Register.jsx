@@ -28,10 +28,12 @@ function Register() {
 
   return (
     <div className="wrapper">
-      <h2 className="form-register-heading">Register</h2>
+      <h2 className="form-register-heading">Registration</h2>
       <form className="form-register" onSubmit={handleSubmit}>
         <div>
-          <label>Username</label>
+          <div className="label-container">
+            <label>Username:</label>
+          </div>
           <input
             type="text"
             className="form-control"
@@ -41,11 +43,15 @@ function Register() {
           />
         </div>
         <div>
-          <label>Email</label>
+          <div className="label-container">
+            <label>Email:</label>
+          </div>
           <input type="email" className="form-control" name="email" value={email} onChange={handleChange} />
         </div>
         <div>
-          <label>Password</label>
+          <div className="label-container">
+            <label>Password:</label>
+          </div>
           <input
             type="password"
             className="form-control"
@@ -55,7 +61,9 @@ function Register() {
           />
         </div>
         <div>
-          <label>Confirm Password</label>
+          <div className="label-container">
+            <label>Confirm Password:</label>
+          </div>
           <input
             type="password"
             className="form-control"
