@@ -7,11 +7,15 @@ import Reviews from './components/Reviews'
 import PostReview from './components/PostReview'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
+import logoImage from './assets/logoImage.png';
+
 function App() {
   const [reviews, setReviews] = useState([]);
   return (
     <BrowserRouter>
       <nav>
+      <img className="logo" src={logoImage} alt="Logo" />
+
         <ul>
           <li>
             <Link to="/">HomePage</Link>
