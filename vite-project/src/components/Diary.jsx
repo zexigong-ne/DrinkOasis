@@ -8,10 +8,6 @@ const Diary = () => {
       { id: 2, text: 'Diary Entry 2' },
     ]);
   
-    // const addDiary = (newDiary) => {
-    //   setDiaries([...diaries, newDiary]);
-    // };
-  
     const handleDelete = (id) => {
       const updatedDiaries = diaries.filter((diary) => diary.id !== id);
       setDiaries(updatedDiaries);
