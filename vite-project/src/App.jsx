@@ -8,6 +8,8 @@ import PostDiary from './components/PostDiary'
 import Reviews from './components/Reviews'
 import PostReview from './components/PostReview'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import '../assets/css/Nav.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 import logoImage from './assets/img/logoImage.png';
 
@@ -41,18 +43,34 @@ function App() {
 
   return (
     <BrowserRouter>
-      <nav>
+      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <div className='container-fluid'>
       <img className="logo" src={logoImage} alt="Logo" />
-
-        <ul>
-          <li>
-            <Link to="/">HomePage</Link>
-            <Link to="/Reviews">Reviews</Link>
-            <Link to="/Diary">Diaries</Link>
-            <Link to="/Register">Sign Up</Link>
-            <Link to="/Login">Login</Link>
+      <a className="navbar-brand" href="#">DrinkOasis</a>
+      <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span className="navbar-toggler-icon"></span>
+    </button>
+        
+    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+          <li className="nav-item">
+            <Link to="/" className="nav-link">HomePage</Link>
+            </li>
+            <li className="nav-item">
+            <Link to="/Reviews" className="nav-link">Reviews</Link>
+            </li>
+            <li className="nav-item">
+            <Link to="/Diary" className="nav-link">Diaries</Link>
+            </li>
+            <li className="nav-item">
+            <Link to="/Register" className="nav-link">Sign Up</Link>
+            </li>
+            <li className="nav-item">
+            <Link to="/Login" className="nav-link">Login</Link>
           </li>
         </ul>
+        </div>
+        </div>
       </nav>
 
       <Routes>
