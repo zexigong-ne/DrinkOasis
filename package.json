@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "This repository serves as the central hub for DrinkOasis, which is a website that help you find cocktail bars in bay area.",
   "main": "backend.js",
+  "type":"module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node backend.js"
   },
   "author": "Xiangyue Zhang, Yahui Zhang",
   "license": "MIT",
