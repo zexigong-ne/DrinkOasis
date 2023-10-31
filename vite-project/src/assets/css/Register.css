@@ -47,9 +47,10 @@
 }
 
 .form-register .btn-submit {
-    margin-top: 20px;
+    margin-top: 30px;
     color: #F8F9FA;
     font-weight: bold;
+    width: 120px;
     border: none;
     background-image: linear-gradient(135deg, #3b82f6, #ef4444, #16a34a, #eab308);
     transition: 0.3s;

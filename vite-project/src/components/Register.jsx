@@ -72,7 +72,7 @@ function Register() {
             onChange={handleChange}
           />
         </div>
-        <button className="btn btn-lg btn-primary btn-block btn-submit" type="submit">Register</button>
+        <button className="btn btn-lg btn-block btn-submit" type="submit">Register</button>
       </form>
     </div>
   );
