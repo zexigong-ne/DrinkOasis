@@ -1,0 +1,107 @@
+.main {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+}
+
+
+.title {
+    color: #292524;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.diary-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+h1 {
+    font-size: 42px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #292524;
+    line-height: 1;
+    margin-top: 6px;
+}
+
+.diaryItem {
+    font-size: 20px;
+    line-height: 1.4;
+    color: #292524;
+    background-color: #F8F9FA;
+    margin-bottom: 16px;
+    padding: 16px 24px;
+    letter-spacing: -1px;
+    border-radius: 16px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+@media (max-width: 1200px) {
+    .diaryItem {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 12px;
+    }
+}
+
+.btn {
+    line-height: 1;
+    text-transform: uppercase;
+    font-size: 17px;
+    font-weight: bold;
+    padding: 16px 0 13px;
+    border: none;
+    color: #fafaf9;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.post-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.centered-button {
+    text-align: center;
+}
+
+
+.btn-large {
+    width: 200px;
+    font-size: 30px;
+    padding: 20px 32px 17px;
+    background-image: linear-gradient(135deg, #3b82f6, #ef4444, #16a34a, #eab308)
+}
+
+.manage-btn {
+    margin-left: auto;
+    flex-shrink: 0;
+
+    display: flex;
+    gap: 18px;
+}
+
+.delete-btn,
+.edit-btn {
+    font-size: 14px;
+    padding: 10px 12px;
+    background-color: black;
+    cursor: pointer;
+}
+
+.btn:hover {
+    border: none;
+    transform: scale(110%);
+}
