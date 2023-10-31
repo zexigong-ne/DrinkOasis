@@ -22,7 +22,7 @@ const Diary = () => {
   };
   
     return (
-      <main className='main'>
+      <div className='diary-area'>
         <section className="title">
         <div className="diary-title">
           <h1>📖 Diaries</h1>
@@ -47,7 +47,7 @@ const Diary = () => {
           ))}
           </ul>  
         </div>
-      </main>
+      </div>
     );
   };
   
