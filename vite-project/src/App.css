@@ -43,3 +43,23 @@
 .read-the-docs {
   color: #888;
 }
+
+/* NAV BAR */
+#root .navbar {
+  margin-top: -30px;
+  margin-left: -120px;
+  margin-right: -120px;
+}
+
+.navbar-collapse {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.navbar-nav {
+  padding-right: 20px;
+}
+
+.nav-item {
+  margin-left: 50px;
+}
