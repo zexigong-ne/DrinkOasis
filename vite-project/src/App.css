@@ -52,6 +52,15 @@
   margin-bottom: 5rem;
 }
 
+#root .top-brand {
+  display: flex;
+  align-items: center;
+}
+
+#root .navbar-brand {
+  font-size: 2rem;
+}
+
 .navbar-collapse {
   display: flex;
   justify-content: flex-end;
