@@ -1,36 +1,52 @@
-import { Component } from 'react';
-import PropTypes from 'prop-types';
+// import { Component } from 'react';
+// import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../assets/css/Register.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-class Login extends Component {
-  constructor() {
-    super();
-    this.state = {
-      username: '',
-      password: '',
-      errorMessage: '',
-    };
-  }
+function Login() {
+  const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  handleInputChange = (e) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    this.setState({ [name]: value });
-  };
-
-  handleLogin = () => {
-    const { username, password } = this.state;
-    const { history } = this.props;
-
-    if (username === 'yourUsername' && password === 'yourPassword') {
-        history.push('/');
-      console.log('Login successful');
-    } else {
-      this.setState({ errorMessage: 'Invalid username or password' });
+    if (name === 'username') {
+      setUsername(value);
+    } else if (name === 'password') {
+      setPassword(value);
     }
   };
 
-  render() {
+  const handleLogin = async () => {
+    try {
+      const response = await fetch('/Login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userName: username, password }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          navigate('/');
+          console.log('Login successful');
+        } else {
+          setErrorMessage('Invalid username or password');
+        }
+      } else {
+        this.setState({ errorMessage: 'Internal Server Error' });
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      setErrorMessage('Internal Server Error');
+    }
+  };
+
     return (
       <div className="wrapper">
       <h2 className="form-register-heading">Login</h2>
@@ -43,9 +59,8 @@ class Login extends Component {
           type="text"
           className="form-control"
           name="username"
-          placeholder="Username"
-          value={this.state.username}
-          onChange={this.handleInputChange}
+          value={username}
+          onChange={handleInputChange}
         />
         </div>
         
@@ -57,22 +72,17 @@ class Login extends Component {
           type="password"
           className="form-control"
           name="password"
-          placeholder="Password"
-          value={this.state.password}
-          onChange={this.handleInputChange}
+          value={password}
+          onChange={handleInputChange}
         />
         </div>
         
-        <button className="btn btn-lg btn-primary btn-block btn-submit" onClick={this.handleLogin}>Login</button>
-        <p>{this.state.errorMessage}</p>
+        <button className="btn btn-lg btn-primary btn-block btn-submit" onClick={handleLogin}>Login</button>
+        <p>{errorMessage}</p>
         </form>
       </div>
     );
   }
-}
 
-Login.propTypes = {
-    history: PropTypes.object.isRequired,
-}
 
 export default Login;

@@ -7,11 +7,11 @@ import Diary from './components/Diary'
 import PostDiary from './components/PostDiary'
 import Reviews from './components/Reviews'
 import PostReview from './components/PostReview'
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import NavBar from './components/NavBar'
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import './app.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-import logoImage from './assets/img/logoImage.png';
 
 function App() {
 
@@ -43,7 +43,8 @@ function App() {
 
   return (
     <BrowserRouter>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+    <NavBar />
+      {/* <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className='container-fluid'>
           <div className="brand-top">
             <a className='top-brand' href="/">
@@ -75,7 +76,7 @@ function App() {
             </ul>
           </div>
         </div>
-      </nav>
+      </nav> */}
 
       <Routes>
       <Route path="/" element={<Home />} />

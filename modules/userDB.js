@@ -28,6 +28,31 @@ function UserDB() {
     }
   };
 
+  userDB.verifyUser = async (userName, userPsw) => {
+    const { client, db } = await connectToMongoDB();
+    const usersCollection = db2.collection("User");
+
+    const user = await usersCollection.findOne({ username: userName });
+
+    try {
+      if (!user) {
+        console.log("User not found");
+        return { success: false, message: "User not found" };
+      }
+
+      if (user.password !== userPsw) {
+        console.log("Password incorrect");
+        return { success: false, message: "Incorrect password" };
+      }
+      console.log("Password correct");
+
+      return { success: true, user };
+    } finally {
+      console.log("DB closing connection");
+      await client.close();
+    }
+  };
+
   return userDB;
 }
 
