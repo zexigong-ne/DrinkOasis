@@ -44,39 +44,7 @@ function App() {
   return (
     <BrowserRouter>
     <NavBar />
-      {/* <nav className="navbar navbar-expand-lg bg-body-tertiary">
-        <div className='container-fluid'>
-          <div className="brand-top">
-            <a className='top-brand' href="/">
-            <img className="logo" src={logoImage} alt="Logo" />
-            <a className="navbar-brand" href="/">DrinkOasis</a>
-            </a>
-            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span className="navbar-toggler-icon"></span>
-            </button>
-          </div>
-        
-        <div className="justify-content-end" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <Link to="/" className="nav-link">HomePage</Link>
-                </li>
-                <li className="nav-item">
-                <Link to="/Reviews" className="nav-link">Reviews</Link>
-                </li>
-                <li className="nav-item">
-                <Link to="/Diary" className="nav-link">Diaries</Link>
-                </li>
-                <li className="nav-item">
-                <Link to="/Register" className="nav-link">Sign Up</Link>
-                </li>
-                <li className="nav-item">
-                <Link to="/Login" className="nav-link">Login</Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav> */}
+      
 
       <Routes>
       <Route path="/" element={<Home />} />
