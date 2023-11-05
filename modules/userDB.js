@@ -30,7 +30,7 @@ function UserDB() {
 
   userDB.verifyUser = async (userName, userPsw) => {
     const { client, db } = await connectToMongoDB();
-    const usersCollection = db2.collection("User");
+    const usersCollection = db.collection("User");
 
     const user = await usersCollection.findOne({ username: userName });
 

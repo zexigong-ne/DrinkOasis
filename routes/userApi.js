@@ -10,7 +10,7 @@ router.post("/Login", async (req, res) => {
     const result = await userDB.verifyUser(username, password);
 
     if (result.success) {
-      req.session.user = { username: username };
+      req.session.user = { username: username, id: result.user.id };
       res.status(200).json({ success: true, message: "Login successful" });
     } else {
       console.log("Authentication failed:", result.message);

@@ -33,6 +33,7 @@ function Reviews() {
                     <p>Location: {review.location}</p>
                     <p>Street Address: {review.address}</p>
                     <p>Review: {review.review}</p>
+                    <p>Author: {review.authorName}</p>
                 </div>
             ))}
         </div>

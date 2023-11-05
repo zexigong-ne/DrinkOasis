@@ -6,11 +6,10 @@ function PostReview({ addReview }) {
   const [location, setLocation] = useState("");
   const [address, setAddress] = useState("");
   const [review, setReview] = useState("");
-  const userId = localStorage.getItem('currentUser');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const reviewData = { id: userId, barName, location, address, review };
+    const reviewData = { barName, location, address, review };
     addReview(reviewData);
   };
 

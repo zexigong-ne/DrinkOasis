@@ -16,8 +16,14 @@ router.get('/reviews', async (req, res) => {
 
 // Insert review
 router.post('/reviews', async (req, res) => {
+    if (!req.session.user || !req.session.user.id) {
+        return res.status(401).json({ message: "Please log in first" });
+    }
+    
     try {
         const review = req.body;
+        review.userId = req.session.user.id;
+
         const result = await reviewDB.insertReview(review);
         res.json(result);
     } catch (error) {
