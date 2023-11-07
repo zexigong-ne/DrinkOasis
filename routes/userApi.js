@@ -3,6 +3,14 @@ import session from "express-session";
 const router = express.Router();
 import { userDB } from "../modules/userDB.js";
 
+router.use(
+  session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
 router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -11,6 +19,7 @@ router.post("/login", async (req, res) => {
 
     if (result.success) {
       req.session.user = { username: username };
+      console.log(res.status);
       res.status(200).json({ success: true, message: "Login successful" });
     } else {
       console.log("Authentication failed:", result.message);
@@ -24,16 +33,16 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/Logout", async (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.error("Error destroying session:", err);
-      res.status(500).json({ message: "Internal Server Error" });
-    } else {
-      console.log("Successfully log out");
-      res.status(200).json({ message: "Logout successful" });
-    }
-  });
-});
+// router.get("/Logout", async (req, res) => {
+//   req.session.destroy((err) => {
+//     if (err) {
+//       console.error("Error destroying session:", err);
+//       res.status(500).json({ message: "Internal Server Error" });
+//     } else {
+//       console.log("Successfully log out");
+//       res.status(200).json({ message: "Logout successful" });
+//     }
+//   });
+// });
 
 export default router;

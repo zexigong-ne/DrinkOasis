@@ -17,7 +17,7 @@ function UserDB() {
 
   userDB.insertUser = async (user) => {
     const { client, db } = await connectToMongoDB();
-    const usersCollection = db.collection("user");
+    const usersCollection = db.collection("User");
 
     try {
       const result = await usersCollection.insertOne(user);
