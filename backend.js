@@ -1,5 +1,6 @@
 import express from "express";
 import api from "./routes/api.js";
+import userApi from "./routes/userApi.js";
 import path from "path";
 import { fileURLToPath } from "url";
 
