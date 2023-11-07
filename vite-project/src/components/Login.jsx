@@ -22,12 +22,12 @@ function Login() {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('/login', {
+      const response = await fetch('/userApi/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username: username, password }),
+        body: JSON.stringify({ username: username, password: password }),
       });
 
       if (response.ok) {
@@ -39,9 +39,8 @@ function Login() {
         } else {
           setErrorMessage('Invalid username or password');
         }
-      } else {
-        this.setState({ errorMessage: 'Internal Server Error' });
       }
+      console.log('Login unsuccessful');
     } catch (error) {
       console.error('Error during login:', error);
       setErrorMessage('Internal Server Error');
