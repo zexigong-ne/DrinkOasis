@@ -1,35 +1,54 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../assets/css/Register.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 function Register() {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  });
-
-  const { username, email, password, confirmPassword } = formData;
+  const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === 'username') {
+      setUsername(value);
+    } else if (name === 'email') {
+      setEmail(value);
+    } else if (name === 'password') {
+      setPassword(value);
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    if (password === confirmPassword) {
-      console.log('Registration successful', formData);
-    } else {
-      console.log('Passwords do not match');
+
+    try {
+      const response = await fetch('/userApi/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, email, password}),
+      });
+
+      if (response.status === 200) {
+          navigate("/Login");
+          console.log('Registration successful');
+      } else {
+        setErrorMessage('Failed to register');
+      }
+    } catch (error) {
+      console.error('Error during registration:', error);
+      setErrorMessage('Internal Server Error');
     }
   };
 
   return (
     <div className="wrapper">
       <h2 className="form-register-heading">Registration</h2>
-      <form className="form-register" onSubmit={handleSubmit}>
+      <form className="form-register" onSubmit={handleRegister}>
         <div>
           <div className="label-container">
             <label>Username:</label>
@@ -46,7 +65,13 @@ function Register() {
           <div className="label-container">
             <label>Email:</label>
           </div>
-          <input type="email" className="form-control" name="email" value={email} onChange={handleChange} />
+          <input
+            type="email"
+            className="form-control"
+            name="email"
+            value={email}
+            onChange={handleChange}
+          />
         </div>
         <div>
           <div className="label-container">
@@ -60,19 +85,10 @@ function Register() {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <div className="label-container">
-            <label>Confirm Password:</label>
-          </div>
-          <input
-            type="password"
-            className="form-control"
-            name="confirmPassword"
-            value={confirmPassword}
-            onChange={handleChange}
-          />
-        </div>
-        <button className="btn btn-lg btn-block btn-submit" type="submit">Register</button>
+        <button className="btn btn-lg btn-block btn-submit" type="submit">
+          Register
+        </button>
+        <p>{errorMessage}</p>
       </form>
     </div>
   );

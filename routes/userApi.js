@@ -3,6 +3,27 @@ import session from "express-session";
 const router = express.Router();
 import { userDB } from "../modules/userDB.js";
 
+router.post("/register", async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
+    const diaryCollection = [];
+
+    const userToInsert = {
+      username: username,
+      email: email,
+      password: password,
+      diaries: diaryCollection,
+    };
+
+    const result = await userDB.insertUser(userToInsert);
+
+    res.json({ message: "User inserted successfully", result });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 router.use(
   session({
     secret: "secret",

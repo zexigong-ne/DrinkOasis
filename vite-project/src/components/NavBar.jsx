@@ -65,11 +65,13 @@ function Navbar() {
                 Diaries
               </Link>
             </li>
+            {!isAuthenticated && (
             <li className="nav-item">
               <Link to="/Register" className="nav-link">
                 Sign Up
               </Link>
             </li>
+            )}
             {!isAuthenticated && (
               <li className="nav-item">
                 <Link to="/Login" className="nav-link">

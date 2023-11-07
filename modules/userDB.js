@@ -19,8 +19,13 @@ function UserDB() {
     const { client, db } = await connectToMongoDB();
     const usersCollection = db.collection("User");
 
+    // const existingUser = await usersCollection.findOne({
+    //   $or: [{ username: user.username }, { email: user.email }],
+    // });
+
     try {
       const result = await usersCollection.insertOne(user);
+      console.log("User inserted", result.insertedCount);
       return result;
     } finally {
       console.log("DB closing connection");
