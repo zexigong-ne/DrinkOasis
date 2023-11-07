@@ -34,6 +34,7 @@ function Login() {
         const data = await response.json();
         console.log(data);
         if (data.success) {
+          sessionStorage.setItem("user", JSON.stringify(data));
           navigate('/Reviews');
           console.log('Login successful');
         } else {
