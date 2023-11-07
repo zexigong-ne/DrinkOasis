@@ -3,14 +3,14 @@ import session from "express-session";
 const router = express.Router();
 import { userDB } from "../modules/userDB.js";
 
-router.post("/Login", async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
 
     const result = await userDB.verifyUser(username, password);
 
     if (result.success) {
-      req.session.user = { username: username, id: result.user.id };
+      req.session.user = { username: username };
       res.status(200).json({ success: true, message: "Login successful" });
     } else {
       console.log("Authentication failed:", result.message);

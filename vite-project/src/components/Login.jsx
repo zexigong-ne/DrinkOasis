@@ -22,18 +22,18 @@ function Login() {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('/Login', {
+      const response = await fetch('/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userName: username, password }),
+        body: JSON.stringify({ username: username, password }),
       });
 
       if (response.ok) {
         const data = await response.json();
         if (data.success) {
-          navigate('/');
+          navigate('/Reviews');
           console.log('Login successful');
         } else {
           setErrorMessage('Invalid username or password');
