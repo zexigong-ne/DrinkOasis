@@ -33,16 +33,16 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// router.get("/Logout", async (req, res) => {
-//   req.session.destroy((err) => {
-//     if (err) {
-//       console.error("Error destroying session:", err);
-//       res.status(500).json({ message: "Internal Server Error" });
-//     } else {
-//       console.log("Successfully log out");
-//       res.status(200).json({ message: "Logout successful" });
-//     }
-//   });
-// });
+router.get("/logout", async (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error("Error destroying session:", err);
+      res.status(500).json({ message: "Internal Server Error" });
+    } else {
+      console.log("Successfully log out");
+      res.status(200).json({ message: "Logout successful" });
+    }
+  });
+});
 
 export default router;
