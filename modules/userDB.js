@@ -54,6 +54,31 @@ function UserDB() {
     }
   };
 
+  userDB.getDiaries = async (username) => {
+    const { client, db } = await connectToMongoDB();
+    const usersCollection = db.collection("User");
+
+    try {
+      const userSelect = await usersCollection.findOne({ username: username });
+      if (!userSelect) {
+        return { status: 404, message: "User not found" };
+      }
+      const diariesCollection = userSelect.diaries;
+      if (!Array.isArray(diariesCollection)) {
+        return { status: 400, message: "Diaries collection is not an array" };
+      }
+
+      console.log("diariesCollection is a array!");
+
+      return { status: 200, diariesCollection };
+    } catch (error) {
+      console.error(error);
+      return { status: 500, message: "Internal Server Error" };
+    } finally {
+      client.close();
+    }
+  };
+
   return userDB;
 }
 

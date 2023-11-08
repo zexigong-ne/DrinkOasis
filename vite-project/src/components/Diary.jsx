@@ -1,25 +1,60 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/css/Diary.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Diary = () => {
-    // Move the state and logic for diaries to the parent component (Diary)
-    const [diaries, setDiaries] = useState([
-      { id: 1, text: 'Diary Entry 1' },
-      { id: 2, text: 'Diary Entry 2' },
-    ]);
-  
-  const handleDelete = (id) => {
-    const updatedDiaries = diaries.filter((diary) => diary.id !== id);
-    setDiaries(updatedDiaries);
-  };
-
+  const [diaries, setDiaries] = useState([]);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+useEffect(() => {
+    const isAuthenticated = sessionStorage.getItem("user") !== null;
+
+    if (!isAuthenticated) {
+      navigate('/Login');
+      return;
+    }
+
+    // const username = sessionStorage.getItem("username");
+    const username = checkUserLoginStatus();
+    const apiUrl = `/userApi/diaries?username=${username}`;
+
+    fetch(apiUrl, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Failed to fetch diaries');
+        }
+      })
+      .then((data) => {
+        setDiaries(data);
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  }, []);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
 
   const handlePostDiaryClick = () => {
     navigate('/PostDiary');
   };
+
+  function checkUserLoginStatus() {
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    console.log("jsx: ", user.username);
+    return user && user.username ? user.username : null;
+  }
   
     return (
       <div className='diary-area'>
@@ -38,9 +73,10 @@ const Diary = () => {
           <ul className='diaryList'>
           {diaries.map((diary) => (
             <li key={diary.id} className='diaryItem'>
-              <p>{diary.text}</p>
+              <h4>{diary.title}</h4>
+              <p>{diary.content}</p>
               <div className='manage-btn'>
-                <button className='btn delete-btn' onClick={() => handleDelete(diary.id)}>Delete</button>
+                {/* <button className='btn delete-btn' onClick={() => handleDelete(diary.id)}>Delete</button> */}
                 <button className='btn edit-btn' to={`/edit/${diary.id}`}>Edit</button>
               </div>
             </li>

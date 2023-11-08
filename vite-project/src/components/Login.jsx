@@ -31,9 +31,9 @@ function Login() {
 
       if (response.status === 200) {
         const data = await response.json();
-        console.log(data);
         if (data.success) {
-          sessionStorage.setItem("user", JSON.stringify(data));
+          const userData = { username: username };
+          sessionStorage.setItem("user", JSON.stringify(userData));
           navigate("/Reviews");
           console.log('Login successful');
         } else {

@@ -66,4 +66,22 @@ router.get("/logout", async (req, res) => {
   });
 });
 
+router.get("/diaries", async (req, res) => {
+  try {
+    const { username } = req.query;
+    console.log("api: ", username);
+
+    const result = await userDB.getDiaries(username);
+    console.log("result.status:", result.status);
+    if (result.status === 200) {
+      res.json(result.diariesCollection);
+    } else {
+      res.status(result.status).json(result.message);
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 export default router;
