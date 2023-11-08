@@ -29,7 +29,29 @@ function UserDB() {
         return maxId;
       }
 
-      return 1;
+      return 0;
+    } catch (error) {
+      console.error(error);
+    } finally {
+      await client.close();
+    }
+  };
+
+  userDB.getNextDiaryId = async (id) => {
+    const userId = parseInt(id, 10);
+    const { client, db } = await connectToMongoDB();
+    const usersCollection = db.collection("User");
+
+    try {
+      const user = await usersCollection.findOne({ id: userId });
+      if (!user || !user.diaries || !Array.isArray(user.diaries)) {
+        return 0;
+      }
+
+      return user.diaries.reduce(
+        (max, diary) => (diary.id > max ? diary.id : max),
+        0
+      );
     } catch (error) {
       console.error(error);
     } finally {
@@ -76,6 +98,45 @@ function UserDB() {
     }
   };
 
+  userDB.postDiary = async (id, newDiary) => {
+    const userId = parseInt(id, 10);
+    const { client, db } = await connectToMongoDB();
+    const usersCollection = db.collection("User");
+
+    try {
+      const userSelect = await usersCollection.findOne({ id: userId });
+      if (!userSelect) {
+        return { status: 404, message: "User not found" };
+      }
+      let diariesCollection = userSelect.diaries;
+      if (!Array.isArray(diariesCollection)) {
+        diariesCollection = [];
+      }
+
+      diariesCollection.push(newDiary);
+
+      const updateResult = await usersCollection.updateOne(
+        { id: userId },
+        { $set: { diaries: diariesCollection } }
+      );
+
+      if (updateResult.modifiedCount === 1) {
+        return {
+          status: 200,
+          message: "Diary added successfully",
+          diary: newDiary,
+        };
+      } else {
+        return { status: 500, message: "Internal Server Error" };
+      }
+    } catch (error) {
+      console.error(error);
+      return { status: 500, message: "Internal Server Error" };
+    } finally {
+      client.close();
+    }
+  };
+
   userDB.getDiaries = async (id) => {
     const userId = parseInt(id, 10);
     const { client, db } = await connectToMongoDB();
@@ -87,11 +148,12 @@ function UserDB() {
         return { status: 404, message: "User not found" };
       }
       const diariesCollection = userSelect.diaries;
-      if (!Array.isArray(diariesCollection)) {
-        return { status: 400, message: "Diaries collection is not an array" };
+      // if (!Array.isArray(diariesCollection)) {
+      //   return { status: 400, message: "Diaries collection is not an array" };
+      // }
+      if (!diariesCollection || diariesCollection.length === 0) {
+        return { status: 200, diariesCollection: [] };
       }
-
-      console.log("diariesCollection is a array!");
 
       return { status: 200, diariesCollection };
     } catch (error) {

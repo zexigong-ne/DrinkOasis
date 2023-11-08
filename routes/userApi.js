@@ -63,6 +63,31 @@ router.get("/logout", async (req, res) => {
   });
 });
 
+router.post("/postDiary", async (req, res) => {
+  try {
+    const { id } = req.query;
+    const { title, content } = req.body;
+
+    const newDiary = {
+      id: (await userDB.getNextDiaryId(id)) + 1,
+      title: title,
+      content: content,
+    };
+    console.log("newDiary:", newDiary);
+
+    const result = await userDB.postDiary(id, newDiary);
+    console.log("result.status:", result.status);
+    if (result.status === 200) {
+      res.json(result.diariesCollection);
+    } else {
+      res.status(result.status).json(result.message);
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 router.get("/diaries", async (req, res) => {
   try {
     const { id } = req.query;
