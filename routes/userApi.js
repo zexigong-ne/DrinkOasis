@@ -7,8 +7,10 @@ router.post("/register", async (req, res) => {
   try {
     const { username, email, password } = req.body;
     const diaryCollection = [];
+    const maxId = await userDB.getMax();
 
     const userToInsert = {
+      id: maxId + 1,
       username: username,
       email: email,
       password: password,

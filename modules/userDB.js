@@ -15,6 +15,28 @@ function UserDB() {
     return { client, db };
   };
 
+  userDB.getMax = async () => {
+    const { client, db } = await connectToMongoDB();
+    const usersCollection = db.collection("User");
+
+    try {
+      const result = await usersCollection
+        .aggregate([{ $group: { _id: null, maxId: { $max: "$id" } } }])
+        .toArray();
+
+      if (result.length > 0) {
+        const maxId = result[0].maxId;
+        return maxId;
+      }
+
+      return 1;
+    } catch (error) {
+      console.error(error);
+    } finally {
+      await client.close();
+    }
+  };
+
   userDB.insertUser = async (user) => {
     const { client, db } = await connectToMongoDB();
     const usersCollection = db.collection("User");
