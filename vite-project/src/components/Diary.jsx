@@ -7,7 +7,7 @@ const Diary = () => {
   const [diaries, setDiaries] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const username = checkUserLoginStatus();
+  const userId = checkUserLoginStatus();
 
 useEffect(() => {
     const isAuthenticated = sessionStorage.getItem("user") !== null;
@@ -16,7 +16,7 @@ useEffect(() => {
       navigate('/Login');
       return;
     }
-    const apiUrl = `/userApi/diaries?username=${username}`;
+    const apiUrl = `/userApi/diaries?id=${userId}`;
 
     fetch(apiUrl, {
       method: 'GET',
@@ -45,7 +45,7 @@ useEffect(() => {
 
   const handleDelete = (diaryId) => {
     
-    const apiUrl = `/userApi/deleteDiary/${diaryId}?username=${username}`;
+    const apiUrl = `/userApi/deleteDiary/${diaryId}?id=${userId}`;
   
     fetch(apiUrl, {
       method: 'DELETE',
@@ -55,7 +55,7 @@ useEffect(() => {
     })
       .then((response) => {
         if (response.ok) {
-          const diariesApiUrl = `/userApi/diaries?username=${username}`;
+          const diariesApiUrl = `/userApi/diaries?id=${userId}`;
           fetch(diariesApiUrl, {
             method: 'GET',
             headers: {
@@ -93,8 +93,7 @@ useEffect(() => {
 
   function checkUserLoginStatus() {
     const user = JSON.parse(sessionStorage.getItem("user"));
-    console.log("jsx: ", user.username);
-    return user && user.username ? user.username : null;
+    return user && user.id ? user.id : null;
   }
   
     return (

@@ -26,14 +26,6 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// router.use(
-//   session({
-//     secret: "secret",
-//     resave: false,
-//     saveUninitialized: true,
-//   })
-// );
-
 router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -42,8 +34,11 @@ router.post("/login", async (req, res) => {
 
     if (result.success) {
       req.session.user = { id: result.user.id, username: username };
-      console.log(res.status);
-      res.status(200).json({ success: true, message: "Login successful" });
+      res.status(200).json({
+        success: true,
+        message: "Login successful",
+        userId: result.user.id,
+      });
     } else {
       console.log("Authentication failed:", result.message);
       return res.status(401).json({ message: "Invalid credentials" });
@@ -70,10 +65,9 @@ router.get("/logout", async (req, res) => {
 
 router.get("/diaries", async (req, res) => {
   try {
-    const { username } = req.query;
-    console.log("api: ", username);
+    const { id } = req.query;
 
-    const result = await userDB.getDiaries(username);
+    const result = await userDB.getDiaries(id);
     console.log("result.status:", result.status);
     if (result.status === 200) {
       res.json(result.diariesCollection);
@@ -87,11 +81,11 @@ router.get("/diaries", async (req, res) => {
 });
 
 router.delete("/deleteDiary/:diaryId", async (req, res) => {
-  const { username } = req.query;
+  const { id } = req.query;
   const diaryId = req.params.diaryId;
 
   try {
-    const result = await userDB.deleteDiary(username, diaryId);
+    const result = await userDB.deleteDiary(id, diaryId);
     if (result.status === 200) {
       res.status(200).json({ message: "Diary deleted successfully" });
     } else if (result.status === 404) {

@@ -76,12 +76,13 @@ function UserDB() {
     }
   };
 
-  userDB.getDiaries = async (username) => {
+  userDB.getDiaries = async (id) => {
+    const userId = parseInt(id, 10);
     const { client, db } = await connectToMongoDB();
     const usersCollection = db.collection("User");
 
     try {
-      const userSelect = await usersCollection.findOne({ username: username });
+      const userSelect = await usersCollection.findOne({ id: userId });
       if (!userSelect) {
         return { status: 404, message: "User not found" };
       }
@@ -101,12 +102,13 @@ function UserDB() {
     }
   };
 
-  userDB.deleteDiary = async (username, diaryId) => {
+  userDB.deleteDiary = async (id, diaryId) => {
+    const userId = parseInt(id, 10);
     const { client, db } = await connectToMongoDB();
     const usersCollection = db.collection("User");
 
     try {
-      const userSelect = await usersCollection.findOne({ username: username });
+      const userSelect = await usersCollection.findOne({ id: userId });
       if (!userSelect) {
         return { status: 404, message: "User not found" };
       }
@@ -127,12 +129,11 @@ function UserDB() {
       diariesCollection.splice(diaryIndex, 1);
 
       const updateResult = await usersCollection.updateOne(
-        { username: username },
+        { id: userId },
         { $set: { diaries: diariesCollection } }
       );
 
       if (updateResult.modifiedCount === 1) {
-        console.log("delete!!!!!");
         return { status: 200, message: "Diary deleted successfully" };
       } else {
         return { status: 500, message: "Internal Server Error" };
