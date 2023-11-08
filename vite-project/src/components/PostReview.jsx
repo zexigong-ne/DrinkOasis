@@ -25,7 +25,8 @@ function PostReview({ addReview }) {
       if (response.ok) {
         const result = await response.json();
         console.log('Review submitted:', result);
-        // Clear the form fields or take any other necessary actions upon success
+        alert("Review added successfully!");
+        window.location.href = '/Reviews';
       } else {
         const error = await response.json();
         console.error('Failed to submit review:', error.message);
