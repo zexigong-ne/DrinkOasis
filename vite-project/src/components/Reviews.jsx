@@ -140,10 +140,38 @@ function Reviews() {
                     {editReviewId === review._id ? (
                     <div>
                         {/* The inline edit form */}
-                        <input type="text" name="barName" value={editFormData.barName} onChange={handleEditFormChange} />
-                        <input type="text" name="location" value={editFormData.location} onChange={handleEditFormChange} />
-                        <input type="text" name="address" value={editFormData.address} onChange={handleEditFormChange} />
-                        <input type="text" name="review" value={editFormData.review} onChange={handleEditFormChange} />
+                        <label htmlFor="barName">Bar Name: </label>
+                        <input
+                            type="text"
+                            id="barName"
+                            name="barName"
+                            value={editFormData.barName}
+                            onChange={handleEditFormChange}
+                        />
+                        <label htmlFor="location">Location: </label>
+                        <input
+                            type="text"
+                            id="location"
+                            name="location"
+                            value={editFormData.location}
+                            onChange={handleEditFormChange}
+                        />
+                        <label htmlFor="address">Address: </label>
+                        <input
+                            type="text"
+                            id="address"
+                            name="address"
+                            value={editFormData.address}
+                            onChange={handleEditFormChange}
+                        />
+                        <label htmlFor="review">Review: </label>
+                        <input
+                            type="text"
+                            id="review"
+                            name="review"
+                            value={editFormData.review}
+                            onChange={handleEditFormChange}
+                        />
                         <button type="button" onClick={handleSaveClick}>Save</button>
                         <button type="button" onClick={handleCancelClick}>Cancel</button>
                     </div>

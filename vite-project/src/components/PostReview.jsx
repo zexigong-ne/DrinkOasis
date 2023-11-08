@@ -16,7 +16,6 @@ function PostReview({ addReview }) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // Include other headers as necessary, like authorization tokens
         },
         credentials: 'include',
         body: JSON.stringify(reviewData),

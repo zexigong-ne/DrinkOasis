@@ -25,7 +25,7 @@ router.post('/reviews', async (req, res) => {
         review.id = req.session.user.id;
 
         const result = await reviewDB.insertReview(review);
-        res.status(201).json({ message: 'Review added successfully', review: result.ops[0] });
+        res.status(201).json({ message: 'Review added successfully'});
     } catch (error) {
         console.error("Error inserting review:", error);
         res.status(500).json({ message: 'Server error' });
