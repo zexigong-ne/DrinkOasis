@@ -26,13 +26,13 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.use(
-  session({
-    secret: "secret",
-    resave: false,
-    saveUninitialized: true,
-  })
-);
+// router.use(
+//   session({
+//     secret: "secret",
+//     resave: false,
+//     saveUninitialized: true,
+//   })
+// );
 
 router.post("/login", async (req, res) => {
   try {
@@ -41,7 +41,7 @@ router.post("/login", async (req, res) => {
     const result = await userDB.verifyUser(username, password);
 
     if (result.success) {
-      req.session.user = { username: username };
+      req.session.user = { id: result.user.id, username: username };
       console.log(res.status);
       res.status(200).json({ success: true, message: "Login successful" });
     } else {

@@ -7,10 +7,32 @@ function PostReview({ addReview }) {
   const [address, setAddress] = useState("");
   const [review, setReview] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const reviewData = { barName, location, address, review };
-    addReview(reviewData);
+
+    try {
+      const response = await fetch('/api/reviews', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify(reviewData),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Review submitted:', result);
+        alert("Review added successfully!");
+        window.location.href = '/Reviews';
+      } else {
+        const error = await response.json();
+        console.error('Failed to submit review:', error.message);
+      }
+    } catch (error) {
+      console.error('Error submitting review:', error);
+    }
   };
 
   return (
