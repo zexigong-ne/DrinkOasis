@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import '../assets/css/PostDiary.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -10,6 +11,35 @@ function EditDiary() {
   const [content, setContent] = useState('');
   const userId = checkUserLoginStatus();
   const navigate = useNavigate();
+
+  const location = useLocation();
+  const { diaryId } = location.state ? location.state : null;
+  console.log("fe getDiary diaryId:", diaryId);
+
+  useEffect(() => {
+    fetch(`/userApi/getDiary/${userId}/${diaryId}`, {
+        method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => {
+        console.log("fe getDiary result.status:", response.status);
+        if (response.status === 200) {
+          return response.json();
+        } else {
+            throw new Error('Failed to fetch diaries');
+        }
+        })
+      .then((data) => {
+        console.log("data: ", data);
+        setTitle(data.title);
+        setContent(data.content);
+      })
+      .catch((error) => {
+        console.error(error.message);
+      });
+  }, [userId, diaryId]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -22,9 +52,9 @@ function EditDiary() {
 
   const handleEditDiary = (e) => {
     e.preventDefault();
-    if (title && content) {
-      fetch(`/userApi/postDiary?id=${userId}`, {
-        method: 'POST',
+    if (title && content && diaryId) {
+      fetch(`/userApi/editDiary?${diaryId}?id=${userId}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -58,7 +88,7 @@ function EditDiary() {
       <div className='post-area'>
         <section className="title">
         <div className="post-title">
-          <h1>📖 Post Your Diary!</h1>
+          <h1>📖 Edit Your Diary!</h1>
         </div>
         </section>
       <div className='text'>
@@ -77,7 +107,7 @@ function EditDiary() {
           value={content}
           onChange={handleInputChange}
         />
-        <button className='btn btn-lg btn-block btn-submit' type="submit" onClick={handleEditDiary}>Post</button>
+        <button className='btn btn-lg btn-block btn-submit' type="submit" onClick={(e) => handleEditDiary(e)}>Post</button>
         <Link to="/Diary" className='back-link'>Back to Diaries</Link>
         </div>
       </div>

@@ -208,6 +208,42 @@ function UserDB() {
     }
   };
 
+  userDB.getDiary = async (id, diaryId) => {
+    const userId = parseInt(id, 10);
+    const { client, db } = await connectToMongoDB();
+    const usersCollection = db.collection("User");
+
+    try {
+      const userSelect = await usersCollection.findOne({ id: userId });
+      console.log("userSelect: ", userSelect);
+      if (!userSelect) {
+        return { status: 404, message: "User not found" };
+      }
+
+      const diariesCollection = userSelect.diaries;
+      if (!Array.isArray(diariesCollection)) {
+        return { status: 400, message: "Diaries collection is not an array" };
+      }
+
+      const diaryIndex = diariesCollection.findIndex(
+        (diary) => diary.id === parseInt(diaryId)
+      );
+      console.log("diaryIndex: ", diaryIndex);
+
+      if (diaryIndex === -1) {
+        return { status: 404, message: "Diary not found" };
+      }
+
+      const diary = diariesCollection[diaryIndex];
+      return { status: 200, diary };
+    } catch (error) {
+      console.error(error);
+      return { status: 500, message: "Internal Server Error" };
+    } finally {
+      client.close();
+    }
+  };
+
   userDB.editDiary = async (id, diaryId, newDiary) => {
     const userId = parseInt(id, 10);
     const { client, db } = await connectToMongoDB();

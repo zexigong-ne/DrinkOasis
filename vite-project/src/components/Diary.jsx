@@ -89,6 +89,10 @@ useEffect(() => {
     navigate('/PostDiary');
   };
 
+  const handleEditDiaryClick = (diaryId) => {
+    navigate('/EditDiary', { state: { diaryId: diaryId } });
+  };
+
   function checkUserLoginStatus() {
     const user = JSON.parse(sessionStorage.getItem("user"));
     return user && user.id ? user.id : null;
@@ -115,7 +119,7 @@ useEffect(() => {
               <p>{diary.content}</p>
               <div className='manage-btn'>
                 <button className='btn delete-btn' onClick={() => handleDelete(diary.id)}>Delete</button>
-                <button className='btn edit-btn' to={`/edit/${diary.id}`}>Edit</button>
+                <button className='btn edit-btn' onClick={() => handleEditDiaryClick(diary.id)}>Edit</button>
               </div>
             </li>
           ))}
