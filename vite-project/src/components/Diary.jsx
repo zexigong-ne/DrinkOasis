@@ -83,8 +83,6 @@ useEffect(() => {
         console.error(error.message);
       });
   };
-  
-  
 
 
   const handlePostDiaryClick = () => {

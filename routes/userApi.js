@@ -124,4 +124,31 @@ router.delete("/deleteDiary/:diaryId", async (req, res) => {
   }
 });
 
+router.edit("/edit/:diaryId", async (req, res) => {
+  const { id } = req.query;
+  const diaryId = req.params.diaryId;
+
+  const { title, content } = req.body;
+
+  const newDiary = {
+    id: diaryId,
+    title: title,
+    content: content,
+  };
+
+  try {
+    const result = await userDB.deleteDiary(id, diaryId, newDiary);
+    if (result.status === 200) {
+      res.status(200).json({ message: "Diary edited successfully" });
+    } else if (result.status === 404) {
+      res.status(404).json({ message: "Diary not found" });
+    } else {
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 export default router;
