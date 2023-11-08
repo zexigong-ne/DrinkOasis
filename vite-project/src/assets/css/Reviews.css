@@ -67,3 +67,35 @@ h1 {
     border: none;
     transform: scale(110%);
 }
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+
+.edit-delete-btn {
+    line-height: 1;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 10px 10px 10px;
+    border: none;
+    border-radius: 100px;
+    color: #fafaf9;
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: #292524;
+    text-align: center;
+    margin: 10px; /* Adjusted for multiple buttons */
+    display: block;
+  }
+  
+  .edit-delete-btn:hover {
+    border: none;
+    background-color: #F8F9FA;
+    color: #292524;
+    transform: scale(1.1);
+  }
+  

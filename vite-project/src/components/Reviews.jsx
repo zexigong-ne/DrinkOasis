@@ -12,19 +12,33 @@ function Reviews() {
         address: "",
         review: "",
     });
+    const [currentUser, setCurrentUser] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     
 
     useEffect(() => {
         const fetchSession = async () => {
             try {
-                const response = await fetch('/api/session');
+              const response = await fetch('/api/session');
+              if (response.ok) {
                 const data = await response.json();
                 setIsAuthenticated(data.isAuthenticated);
+                if (data.isAuthenticated) {
+                  setCurrentUser(data.user);
+                } else {
+                  setCurrentUser(null);
+                  console.log('Not logged in');
+                }
+              } else {
+                console.error('Session fetch failed with status:', response.status);
+                setIsAuthenticated(false);
+                setCurrentUser(null);
+              }
             } catch (error) {
-                console.error('Error fetching session:', error);
+              console.error('Error fetching session:', error);
             }
         };
+        
         fetchSession();
         
         fetch('/api/reviews')
@@ -101,6 +115,18 @@ function Reviews() {
         }
     };
 
+    function renderEditDeleteButtons(review) {
+        if (isAuthenticated && currentUser && currentUser.id === review.id) {
+          return (
+            <div className="button-container">
+              <button className="edit-delete-btn" onClick={() => handleEditClick(review)}>Edit</button>
+              <button className="edit-delete-btn" onClick={() => handleDeleteClick(review._id)}>Delete</button>
+            </div>
+          );
+        }
+        return null;
+      }      
+
     return (
         <div className="main">
             <div className="title">
@@ -129,12 +155,7 @@ function Reviews() {
                         <p>Street Address: {review.address}</p>
                         <p>Review: {review.review}</p>
                         <p>Author: {review.authorName}</p>
-                        {isAuthenticated && (
-                                <>
-                                    <button onClick={() => handleEditClick(review)}>Edit</button>
-                                    <button onClick={() => handleDeleteClick(review._id)}>Delete</button>
-                                </>
-                        )}
+                        {renderEditDeleteButtons(review)}
                     </div>
                     )}
                 </div>

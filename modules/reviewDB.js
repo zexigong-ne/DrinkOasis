@@ -50,7 +50,8 @@ function ReviewDB() {
                     location: 1,
                     address: 1,
                     review: 1,
-                    authorName: "$authorDetails.username"
+                    id: 1,
+                    authorName: "$authorDetails.username",
                 }
             }
         ]).toArray();
