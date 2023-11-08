@@ -7,6 +7,7 @@ const Diary = () => {
   const [diaries, setDiaries] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const username = checkUserLoginStatus();
 
 useEffect(() => {
     const isAuthenticated = sessionStorage.getItem("user") !== null;
@@ -15,9 +16,6 @@ useEffect(() => {
       navigate('/Login');
       return;
     }
-
-    // const username = sessionStorage.getItem("username");
-    const username = checkUserLoginStatus();
     const apiUrl = `/userApi/diaries?username=${username}`;
 
     fetch(apiUrl, {
@@ -44,6 +42,49 @@ useEffect(() => {
   if (error) {
     return <div>Error: {error}</div>;
   }
+
+  const handleDelete = (diaryId) => {
+    
+    const apiUrl = `/userApi/deleteDiary/${diaryId}?username=${username}`;
+  
+    fetch(apiUrl, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          const diariesApiUrl = `/userApi/diaries?username=${username}`;
+          fetch(diariesApiUrl, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
+            .then((response) => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                throw new Error('Failed to fetch diaries');
+              }
+            })
+            .then((data) => {
+              setDiaries(data);
+            })
+            .catch((error) => {
+              console.error(error.message);
+            });
+        } else {
+          throw new Error('Failed to delete diary');
+        }
+      })
+      .catch((error) => {
+        console.error(error.message);
+      });
+  };
+  
+  
 
 
   const handlePostDiaryClick = () => {
@@ -76,7 +117,7 @@ useEffect(() => {
               <h4>{diary.title}</h4>
               <p>{diary.content}</p>
               <div className='manage-btn'>
-                {/* <button className='btn delete-btn' onClick={() => handleDelete(diary.id)}>Delete</button> */}
+                <button className='btn delete-btn' onClick={() => handleDelete(diary.id)}>Delete</button>
                 <button className='btn edit-btn' to={`/edit/${diary.id}`}>Edit</button>
               </div>
             </li>

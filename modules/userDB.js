@@ -1,7 +1,7 @@
 import "dotenv/config";
 
 import { MongoClient } from "mongodb";
-// import { ObjectId } from "mongodb";
+import { ObjectId } from "mongodb";
 
 function UserDB() {
   const uri = process.env.MONGO_URL;
@@ -71,6 +71,50 @@ function UserDB() {
       console.log("diariesCollection is a array!");
 
       return { status: 200, diariesCollection };
+    } catch (error) {
+      console.error(error);
+      return { status: 500, message: "Internal Server Error" };
+    } finally {
+      client.close();
+    }
+  };
+
+  userDB.deleteDiary = async (username, diaryId) => {
+    const { client, db } = await connectToMongoDB();
+    const usersCollection = db.collection("User");
+
+    try {
+      const userSelect = await usersCollection.findOne({ username: username });
+      if (!userSelect) {
+        return { status: 404, message: "User not found" };
+      }
+
+      const diariesCollection = userSelect.diaries;
+      if (!Array.isArray(diariesCollection)) {
+        return { status: 400, message: "Diaries collection is not an array" };
+      }
+
+      const diaryIndex = diariesCollection.findIndex(
+        (diary) => diary.id === parseInt(diaryId)
+      );
+
+      if (diaryIndex === -1) {
+        return { status: 404, message: "Diary not found" };
+      }
+
+      diariesCollection.splice(diaryIndex, 1);
+
+      const updateResult = await usersCollection.updateOne(
+        { username: username },
+        { $set: { diaries: diariesCollection } }
+      );
+
+      if (updateResult.modifiedCount === 1) {
+        console.log("delete!!!!!");
+        return { status: 200, message: "Diary deleted successfully" };
+      } else {
+        return { status: 500, message: "Internal Server Error" };
+      }
     } catch (error) {
       console.error(error);
       return { status: 500, message: "Internal Server Error" };
