@@ -1,4 +1,5 @@
 import express from "express";
+import session from "express-session";
 import api from "./routes/api.js";
 import userApi from "./routes/userApi.js";
 import path from "path";
@@ -12,6 +13,13 @@ const frontendPath = path.join(__dirname, "vite-project", "dist");
 
 app.use(express.static(frontendPath));
 app.use(express.json());
+app.use(
+  session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 app.use("/api", api);
 app.use("/userApi", userApi);
