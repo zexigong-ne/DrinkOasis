@@ -40,7 +40,6 @@ h1 {
     border-radius: 16px;
 
     display: flex;
-    justify-content: space-between;
     align-items: center;
     gap: 24px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
