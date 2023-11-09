@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import '../assets/css/Diary.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Diary = () => {
   const [diaries, setDiaries] = useState([]);
   const [error, setError] = useState(null);
-  const { otherId } = useParams(); 
+  // const { otherId } = useParams(); 
   const navigate = useNavigate();
   const userId = checkUserLoginStatus(); // current user id
+
+  const location = useLocation();
+  const { otherId } = location.state || {};
 
 useEffect(() => {
     const isAuthenticated = sessionStorage.getItem("user") !== null;
@@ -46,7 +49,7 @@ useEffect(() => {
       .catch((error) => {
         setError(error.message);
       });
-  }, [otherId]);
+  }, [navigate, otherId, userId]);
 
   if (error) {
     return <div>Error: {error}</div>;
