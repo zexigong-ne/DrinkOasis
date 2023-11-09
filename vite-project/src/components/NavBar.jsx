@@ -51,18 +51,13 @@ function Navbar() {
         <div className="justify-content-end" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link to="/" className="nav-link">
-                HomePage
-              </Link>
-            </li>
-            <li className="nav-item">
               <Link to="/Reviews" className="nav-link">
                 Reviews
               </Link>
             </li>
             <li className="nav-item">
               <Link to="/Diary" className="nav-link">
-                Diaries
+                My Diaries
               </Link>
             </li>
             {!isAuthenticated && (
