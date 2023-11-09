@@ -45,7 +45,8 @@ function Reviews() {
             .then(response => response.json())
             .then(data => {
               if (Array.isArray(data)) {
-                  setReviews(data);
+                const lastFiftyData = data.length > 20 ? data.slice(-20) : data;
+                setReviews(lastFiftyData);
               } else {
                   console.error("Unexpected data format:", data);
               }
