@@ -29,36 +29,26 @@ Class Link: [Web Development Fall 2023](https://johnguerra.co/classes/webDevelop
 ## Project Functionalities
 
 1. **Homepage**  
-   ![Homepage image](https://github.com/rebeccazzha/DrinkCrafter/blob/main/static/img/homepage.png)
+   ![Homepage image](https://github.com/RebeccaYHZ/DrinkOasis/blob/main/vite-project/src/assets/img/localhost_3000_.png)
    
 2. **Users Sign Up and Login**
-   ![Login page image](https://github.com/rebeccazzha/DrinkCrafter/blob/main/static/img/login.png)
-   ![Signup page image](https://github.com/rebeccazzha/DrinkCrafter/blob/main/static/img/signup.png)
+   ![Login page image](https://github.com/RebeccaYHZ/DrinkOasis/blob/main/vite-project/src/assets/img/localhost_3000_%20(2).png)
+   ![Signup page image](https://github.com/RebeccaYHZ/DrinkOasis/blob/main/vite-project/src/assets/img/localhost_3000_%20(1).png)
 
-3. **Recipe Upload and Sharing**  
-   Users can upload their own bartending recipes along with images. Recipes can include ingredients, preparation steps, and serving suggestions.
-   ![Recipe page image](https://github.com/rebeccazzha/DrinkCrafter/blob/main/static/img/recipe.png)
-   ![Recipe upload image](https://github.com/rebeccazzha/DrinkCrafter/blob/main/static/img/post-recipe.png)
+3. **Post, Delete, and Edit Diaries**  
+   Once logged in, users can post diaries documenting their home-made cocktail making diaries and their experiences when making drinks, and they can only delete or edit their own posts.
+   ![Diaries page image](https://github.com/RebeccaYHZ/DrinkOasis/blob/main/vite-project/src/assets/img/Screenshot%202023-11-08%20at%2011.03.48%20PM.png)
+   ![Diaries post image](https://github.com/RebeccaYHZ/DrinkOasis/blob/main/vite-project/src/assets/img/localhost_3000_%20(4).png)
+   ![Diaries edit image](https://github.com/RebeccaYHZ/DrinkOasis/blob/main/vite-project/src/assets/img/localhost_3000_%20(5).png)
 
-4. **Recipe Search**  
-   Users can search for bartending recipes based on the type of base liquor. Filter options for easy recipe discovery.
+4. **View Diaries**  
+   Users’ diaries are only viewable after entering someone’s profile. Therefore, posts about bars will show the author, and clicking on the author will direct users to the author’s profile.
    ![Recipe filter image](https://github.com/rebeccazzha/DrinkCrafter/blob/main/static/img/recipe.png)
 
-5. **Recipe Liked and Collected Lists**  
-   Users can like and collect their favorite bartending recipes to the collection list.
-   ![Recipe collection image](https://github.com/rebeccazzha/DrinkCrafter/blob/main/static/img/collect-page.png)
-
-6.  **Recipe Detail Page**
-   Each drink has its unique detail page that contains detailed recipe.
-   ![Recipe detail image](https://github.com/rebeccazzha/DrinkCrafter/blob/main/static/img/detailPage.png)
-
-7. **Fun Facts Sharing**  
-   Users can share interesting and entertaining facts about different liquors.
-   ![Fun fact page image](https://github.com/rebeccazzha/DrinkCrafter/blob/main/static/img/funfact.png)
-
-8. **Fun Facts Rating**  
-   Users can rate fun facts by clicking tags such as ":+1:", ":exploding_head:", and ":-1:". Aggregate ratings help users identify the most engaging facts.
-   ![Fun fact like image](https://github.com/rebeccazzha/DrinkCrafter/blob/main/static/img/funfact.png)
+5. **Post, Read, Update, and Delete Bar Reviews**  
+   Users can also post reviews about local bars. Although users can only delete or edit their own post, this page will be accessible to all users for exploring interesting bars.
+   ![Review page image](https://github.com/RebeccaYHZ/DrinkOasis/blob/main/vite-project/src/assets/img/Screenshot%202023-11-08%20at%2011.02.40%20PM.png)
+   ![Review post image](https://github.com/RebeccaYHZ/DrinkOasis/blob/main/vite-project/src/assets/img/localhost_3000_%20(6).png)
 
 
 ## Setup and Usage
