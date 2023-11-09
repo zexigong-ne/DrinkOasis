@@ -24,7 +24,7 @@ Class Link: [Web Development Fall 2023](https://johnguerra.co/classes/webDevelop
 [Presentation slides](https://www.canva.com/design/DAFzp16hnU8/TpF0pr1Au025IUZH15PuIw/edit?utm_content=DAFzp16hnU8&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 **Youtube Video**
-[Youtube Video](https://youtu.be/vHV-pzm9AE8)
+[Youtube Video](https://youtu.be/4yUA7QiihvQ)
 
 ## Project Functionalities
 
