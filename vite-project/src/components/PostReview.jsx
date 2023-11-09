@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../assets/css/PostReview.css';
 
 function PostReview() {
@@ -8,7 +8,7 @@ function PostReview() {
   const [address, setAddress] = useState("");
   const [review, setReview] = useState("");
 
-  let history = useHistory();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,7 +28,7 @@ function PostReview() {
         const result = await response.json();
         console.log('Review submitted:', result);
         alert("Review added successfully!");
-        history.push('/Reviews');
+        navigate('/Reviews');
       } else {
         const error = await response.json();
         console.error('Failed to submit review:', error.message);

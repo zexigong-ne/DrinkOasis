@@ -5,9 +5,17 @@ const router = express.Router();
 
 // Get all reviews
 router.get('/reviews', async (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const skip = (page - 1) * limit;
     try {
-        const reviews = await reviewDB.getAllReviews();
-        res.json(reviews);
+        const reviews = await reviewDB.getAllReviews({ skip, limit });
+        const totalReviews = await reviewDB.countReviews();
+        res.json({
+            reviews,
+            currentPage: page,
+            totalPages: Math.ceil(totalReviews / limit),
+        });
     } catch (error) {
         console.error("Error fetching reviews:", error);
         res.status(500).json({ message: 'Server error' });

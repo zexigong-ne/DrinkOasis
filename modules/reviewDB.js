@@ -27,7 +27,7 @@ function ReviewDB() {
     }
   };
 
-  reviewDB.getAllReviews = async () => {
+  reviewDB.getAllReviews = async ({ skip, limit }) => {
     const { client, db } = await connectToMongoDB();
     const reviewsCollection = db.collection("Bars");
     try {
@@ -53,6 +53,12 @@ function ReviewDB() {
                     id: 1,
                     authorName: "$authorDetails.username",
                 }
+            },
+            {
+              $skip: skip
+            },
+            {
+              $limit: limit
             }
         ]).toArray();
         return reviews;
@@ -61,6 +67,20 @@ function ReviewDB() {
         await client.close();
     }
   };
+
+  reviewDB.countReviews = async () => {
+    const { client, db } = await connectToMongoDB();
+    const reviewsCollection = db.collection("Bars");
+    try {
+      return await reviewsCollection.countDocuments();
+    } catch (error) {
+      console.error("Error counting reviews:", error);
+      throw error;
+    } finally {
+      console.log("DB closing connection");
+      await client.close();
+    }
+  }
 
   reviewDB.getReviewById = async (reviewId) => {
     const { client, db } = await connectToMongoDB();

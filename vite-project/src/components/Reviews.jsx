@@ -14,6 +14,8 @@ function Reviews() {
     });
     const [currentUser, setCurrentUser] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
     
 
     useEffect(() => {
@@ -41,18 +43,34 @@ function Reviews() {
         
         fetchSession();
         
-        fetch('/api/reviews')
-            .then(response => response.json())
-            .then(data => {
-              if (Array.isArray(data)) {
-                const lastFiftyData = data.length > 20 ? data.slice(-20) : data;
-                setReviews(lastFiftyData);
+        // fetch('/api/reviews')
+        //     .then(response => response.json())
+        //     .then(data => {
+        //       if (Array.isArray(data)) {
+        //         setReviews(data);
+        //       } else {
+        //           console.error("Unexpected data format:", data);
+        //       }
+        //   })
+        //     .catch(error => console.error("Error fetching reviews:", error));
+
+        const fetchReviews = async () => {
+          try {
+              const response = await fetch(`/api/reviews?page=${currentPage}&limit=20`);
+              const data = await response.json();
+              if (Array.isArray(data.reviews)) {
+                  setReviews(data.reviews);
+                  setTotalPages(data.totalPages);
               } else {
                   console.error("Unexpected data format:", data);
               }
-          })
-            .catch(error => console.error("Error fetching reviews:", error));
-    }, []);
+          } catch (error) {
+              console.error("Error fetching reviews:", error);
+          }
+        };
+
+      fetchReviews();
+    }, [currentPage]);
 
     const handleEditClick = (review) => {
         setEditReviewId(review._id);
@@ -131,6 +149,22 @@ function Reviews() {
         return null;
       }      
 
+    const goToPreviousPage = () => {
+      setCurrentPage(currentPage => Math.max(1, currentPage - 1));
+    };
+
+    const goToNextPage = () => {
+      setCurrentPage(currentPage => Math.min(totalPages, currentPage + 1));
+    };
+
+    const goToFirstPage = () => {
+      setCurrentPage(1);
+    };
+    
+    const goToLastPage = () => {
+      setCurrentPage(totalPages);
+    };    
+
     return (
         <div className="main">
             <div className="title">
@@ -192,6 +226,14 @@ function Reviews() {
                     )}
                 </div>
             ))}
+            <div className="pagination">
+              <button onClick={goToFirstPage} disabled={currentPage === 1}>First</button>
+              <button onClick={goToPreviousPage} disabled={currentPage === 1}>Previous</button>
+              <span>Page {currentPage} of {totalPages}</span>
+              <button onClick={goToNextPage} disabled={currentPage === totalPages}>Next</button>
+              <button onClick={goToLastPage} disabled={currentPage === totalPages}>Last</button>
+            </div>
+
         </div>
     );
 }
