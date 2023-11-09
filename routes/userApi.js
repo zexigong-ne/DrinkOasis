@@ -70,6 +70,7 @@ router.post("/postDiary", async (req, res) => {
 
     const newDiary = {
       id: (await userDB.getNextDiaryId(id)) + 1,
+      userId: id,
       title: title,
       content: content,
     };

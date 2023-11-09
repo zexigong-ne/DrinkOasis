@@ -7,7 +7,7 @@ const Diary = () => {
   const [diaries, setDiaries] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const userId = checkUserLoginStatus();
+  const userId = checkUserLoginStatus(); // current user id
 
 useEffect(() => {
     const isAuthenticated = sessionStorage.getItem("user") !== null;
@@ -16,7 +16,9 @@ useEffect(() => {
       navigate('/Login');
       return;
     }
-    const apiUrl = `/userApi/diaries?id=${userId}`;
+    
+    const userToFetch = getUserIdToFetch();
+    const apiUrl = `/userApi/diaries?id=${userToFetch}`;
 
     fetch(apiUrl, {
       method: 'GET',
@@ -42,6 +44,8 @@ useEffect(() => {
   if (error) {
     return <div>Error: {error}</div>;
   }
+
+  const isCurrentUserAuthor = (diaryUserId) => diaryUserId === userId;
 
   const handleDelete = (diaryId) => {
     
@@ -117,10 +121,12 @@ useEffect(() => {
             <li key={diary.id} className='diaryItem'>
               <h4>{diary.title}</h4>
               <p>{diary.content}</p>
+              {isCurrentUserAuthor(diary.userId) && (
               <div className='manage-btn'>
                 <button className='btn delete-btn' onClick={() => handleDelete(diary.id)}>Delete</button>
                 <button className='btn edit-btn' onClick={() => handleEditDiaryClick(diary.id)}>Edit</button>
               </div>
+              )}
             </li>
           ))}
           </ul>  
