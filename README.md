@@ -2,8 +2,8 @@
 
 DrinkOasis emerges as a digital guide for cocktail enthusiasts. By connecting users with nearby cocktail bars and offering genuine reviews, we intend to elevate the art of cocktail-making and celebrate the establishments that perfect it. Moreover, this website implements a diary-like function, allowing users to share their experience while making drinks on their own. 
 
-**DrinCrafter Website Link**
-[DrinkOasis Website Link](https://drinkcrafter.onrender.com/index.html)
+**DrinOasis Website Link**
+[DrinkOasis Website Link](https://drinkoasis.onrender.com/)
 
 ## Author
 
@@ -43,12 +43,14 @@ Class Link: [Web Development Fall 2023](https://johnguerra.co/classes/webDevelop
 
 4. **View Diaries**  
    Users’ diaries are only viewable after entering someone’s profile. Therefore, posts about bars will show the author, and clicking on the author will direct users to the author’s profile.
-   ![Recipe filter image](https://github.com/rebeccazzha/DrinkCrafter/blob/main/static/img/recipe.png)
+   ![View diaries image](https://github.com/RebeccaYHZ/DrinkOasis/blob/main/vite-project/src/assets/img/Screenshot%202023-11-08%20at%2011.19.06%20PM.png)
 
 5. **Post, Read, Update, and Delete Bar Reviews**  
    Users can also post reviews about local bars. Although users can only delete or edit their own post, this page will be accessible to all users for exploring interesting bars.
-   ![Review page image](https://github.com/RebeccaYHZ/DrinkOasis/blob/main/vite-project/src/assets/img/Screenshot%202023-11-08%20at%2011.02.40%20PM.png)
+   ![Review(not log in) page image](https://github.com/RebeccaYHZ/DrinkOasis/blob/main/vite-project/src/assets/img/Screenshot%202023-11-08%20at%2011.02.40%20PM.png)
+   ![Review(log in) page image](https://github.com/RebeccaYHZ/DrinkOasis/blob/main/vite-project/src/assets/img/Screenshot%202023-11-08%20at%2011.18.02%20PM.png)
    ![Review post image](https://github.com/RebeccaYHZ/DrinkOasis/blob/main/vite-project/src/assets/img/localhost_3000_%20(6).png)
+   ![Review edit image](https://github.com/RebeccaYHZ/DrinkOasis/blob/main/vite-project/src/assets/img/Screenshot%202023-11-08%20at%2011.18.17%20PM.png)
 
 
 ## Setup and Usage
@@ -61,7 +63,7 @@ Class Link: [Web Development Fall 2023](https://johnguerra.co/classes/webDevelop
 ## Instruction to build
 
 **Clone the Repository:**
-git clone [https://github.com/rebeccazzha/DrinkCrafter.git](https://github.com/RebeccaYHZ/DrinkOasis.git)
+git clone https://github.com/RebeccaYHZ/DrinkOasis.git
 
 **Enter the Project Directory:**
 cd DrinkOasis
