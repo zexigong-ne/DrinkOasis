@@ -112,37 +112,41 @@ useEffect(() => {
     return user && user.id ? user.id : null;
   }
   
-    return (
-      <div className='diary-area'>
-        <section className="title">
+  return (
+    <div className='diary-area'>
+      <section className="title">
         <div className="diary-title">
           <h1>📖 Diaries</h1>
         </div>
-        </section>
+      </section>
+  
+      {diaries.length > 0 && isCurrentUserAuthor(diaries[0].userId) && (
         <div className="centered-button">
           <div className='post-btn'>
-          <button className="post btn btn-large" onClick={handlePostDiaryClick}>Post</button>
+            <button className="post btn btn-large" onClick={handlePostDiaryClick}>Post</button>
           </div>
         </div>
-        
-        <div>
-          <ul className='diaryList'>
+      )}
+  
+      <div>
+        <ul className='diaryList'>
           {diaries.map((diary) => (
             <li key={diary.id} className='diaryItem'>
               <h4>{diary.title}</h4>
               <p>{diary.content}</p>
               {isCurrentUserAuthor(diary.userId) && (
-              <div className='manage-btn'>
-                <button className='btn delete-btn' onClick={() => handleDelete(diary.id)}>Delete</button>
-                <button className='btn edit-btn' onClick={() => handleEditDiaryClick(diary.id)}>Edit</button>
-              </div>
+                <div className='manage-btn'>
+                  <button className='btn delete-btn' onClick={() => handleDelete(diary.id)}>Delete</button>
+                  <button className='btn edit-btn' onClick={() => handleEditDiaryClick(diary.id)}>Edit</button>
+                </div>
               )}
             </li>
           ))}
-          </ul>  
-        </div>
+        </ul>
       </div>
-    );
+    </div>
+  );
+  
   };
   
 
