@@ -215,7 +215,6 @@ function UserDB() {
 
     try {
       const userSelect = await usersCollection.findOne({ id: userId });
-      console.log("userSelect: ", userSelect);
       if (!userSelect) {
         return { status: 404, message: "User not found" };
       }
@@ -228,7 +227,6 @@ function UserDB() {
       const diaryIndex = diariesCollection.findIndex(
         (diary) => diary.id === parseInt(diaryId)
       );
-      console.log("diaryIndex: ", diaryIndex);
 
       if (diaryIndex === -1) {
         return { status: 404, message: "Diary not found" };

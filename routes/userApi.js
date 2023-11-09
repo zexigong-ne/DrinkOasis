@@ -130,7 +130,6 @@ router.get("/getDiary/:userId/:diaryId", async (req, res) => {
 
   try {
     const result = await userDB.getDiary(userId, diaryId);
-    console.log("getDiary result.status:", result.status);
     if (result.status === 200) {
       res.status(200).json(result.diary);
     } else if (result.status === 404) {
@@ -144,8 +143,8 @@ router.get("/getDiary/:userId/:diaryId", async (req, res) => {
   }
 });
 
-router.put("/edit/:diaryId", async (req, res) => {
-  const { id } = req.query;
+router.put("/edit/:userId/:diaryId", async (req, res) => {
+  const userId = req.params.userId;
   const diaryId = req.params.diaryId;
 
   const { title, content } = req.body;
@@ -157,7 +156,7 @@ router.put("/edit/:diaryId", async (req, res) => {
   };
 
   try {
-    const result = await userDB.editDiary(id, diaryId, newDiary);
+    const result = await userDB.editDiary(userId, diaryId, newDiary);
     if (result.status === 200) {
       res.status(200).json({ message: "Diary edited successfully" });
     } else if (result.status === 404) {

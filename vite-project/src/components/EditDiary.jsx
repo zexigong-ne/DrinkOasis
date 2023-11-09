@@ -14,7 +14,6 @@ function EditDiary() {
 
   const location = useLocation();
   const { diaryId } = location.state ? location.state : null;
-  console.log("fe getDiary diaryId:", diaryId);
 
   useEffect(() => {
     fetch(`/userApi/getDiary/${userId}/${diaryId}`, {
@@ -24,7 +23,6 @@ function EditDiary() {
       },
     })
     .then((response) => {
-        console.log("fe getDiary result.status:", response.status);
         if (response.status === 200) {
           return response.json();
         } else {
@@ -53,7 +51,7 @@ function EditDiary() {
   const handleEditDiary = (e) => {
     e.preventDefault();
     if (title && content && diaryId) {
-      fetch(`/userApi/editDiary?${diaryId}?id=${userId}`, {
+      fetch(`/userApi/edit/${userId}/${diaryId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
