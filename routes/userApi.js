@@ -69,7 +69,7 @@ router.post("/postDiary", async (req, res) => {
     const { title, content } = req.body;
 
     const newDiary = {
-      id: (await userDB.getNextDiaryId(id)) + 1,
+      id: parseInt(await userDB.getNextDiaryId(id)) + 1,
       userId: id,
       title: title,
       content: content,
@@ -146,8 +146,7 @@ router.get("/getDiary/:userId/:diaryId", async (req, res) => {
 
 router.put("/edit/:userId/:diaryId", async (req, res) => {
   const userId = req.params.userId;
-  const diaryId = req.params.diaryId;
-
+  const diaryId = parseInt(req.params.diaryId);
   const { title, content } = req.body;
 
   const newDiary = {
