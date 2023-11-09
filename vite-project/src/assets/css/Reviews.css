@@ -99,3 +99,15 @@ h1 {
     transform: scale(1.1);
   }
   
+  .clickable-author {
+    cursor: pointer;
+    color: #0645AD;
+    text-decoration: underline;
+  }
+  
+  .clickable-author:hover {
+    color: #0558B2;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  

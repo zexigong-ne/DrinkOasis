@@ -185,7 +185,7 @@ function Reviews() {
                         <p>Location: {review.location}</p>
                         <p>Street Address: {review.address}</p>
                         <p>Review: {review.review}</p>
-                        <p>Author: <span onClick={() => navigateToUserDiary(review.id)}>{review.authorName}</span></p>
+                        <p>Author: <span className="clickable-author" onClick={() => navigateToUserDiary(review.id)}>{review.authorName}</span></p>
                         {renderEditDeleteButtons(review)}
                     </div>
                     )}
