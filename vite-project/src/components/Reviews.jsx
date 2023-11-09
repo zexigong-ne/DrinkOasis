@@ -115,7 +115,7 @@ function Reviews() {
     };
 
     const navigateToUserDiary = (userId) => {
-      navigate(`/Diary/${userId}`);
+      navigate(`/diaries/${userId}`);
     };
 
     function renderEditDeleteButtons(review) {
