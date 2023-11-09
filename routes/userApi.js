@@ -152,6 +152,7 @@ router.put("/edit/:userId/:diaryId", async (req, res) => {
 
   const newDiary = {
     id: diaryId,
+    userId: userId,
     title: title,
     content: content,
   };

@@ -1,11 +1,14 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import '../assets/css/PostReview.css';
 
-function PostReview({ addReview }) {
+function PostReview() {
   const [barName, setBarName] = useState("");
   const [location, setLocation] = useState("");
   const [address, setAddress] = useState("");
   const [review, setReview] = useState("");
+
+  let history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +28,7 @@ function PostReview({ addReview }) {
         const result = await response.json();
         console.log('Review submitted:', result);
         alert("Review added successfully!");
-        window.location.href = '/Reviews';
+        history.push('/Reviews');
       } else {
         const error = await response.json();
         console.error('Failed to submit review:', error.message);
