@@ -19,9 +19,15 @@ useEffect(() => {
       return;
     }
 
-    const apiUrl = `/userApi/diaries?id=${otherId}`;
+    const apiUrl = () => {
+      if(otherId != null) {
+        return `/userApi/diaries?id=${otherId}`;
+      }else {
+        return `/userApi/diaries?id=${userId}`;
+      }
+    }
 
-    fetch(apiUrl, {
+    fetch(apiUrl(), {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
