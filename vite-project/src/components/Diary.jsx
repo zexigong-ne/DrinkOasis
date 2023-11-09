@@ -55,7 +55,10 @@ useEffect(() => {
     return <div>Error: {error}</div>;
   }
 
-  const isCurrentUserAuthor = (diaryUserId) => diaryUserId === userId;
+  // const isCurrentUserAuthor = (diaryUserId) => 
+  // console.log(diaryUserId);
+  // console.log(userId);
+  // diaryUserId === userId;
 
   const handleDelete = (diaryId) => {
     
@@ -111,6 +114,18 @@ useEffect(() => {
     const user = JSON.parse(sessionStorage.getItem("user"));
     return user && user.id ? user.id : null;
   }
+
+  const editAndDeleteButtons = (diary) => {
+    if (diary.userId == userId) {
+      return (
+        <div className='manage-btn'>
+          <button className='btn delete-btn' onClick={() => handleDelete(diary.id)}>Delete</button>
+          <button className='btn edit-btn' onClick={() => handleEditDiaryClick(diary.id)}>Edit</button>
+        </div>
+      );
+    }
+    return null;
+  };
   
   return (
     <div className='diary-area'>
@@ -120,7 +135,7 @@ useEffect(() => {
         </div>
       </section>
   
-      {diaries.length > 0 && isCurrentUserAuthor(diaries[0].userId) && (
+      {userId && (!otherId || userId === otherId) && (
         <div className="centered-button">
           <div className='post-btn'>
             <button className="post btn btn-large" onClick={handlePostDiaryClick}>Post</button>
@@ -134,12 +149,7 @@ useEffect(() => {
             <li key={diary.id} className='diaryItem'>
               <h4>{diary.title}</h4>
               <p>{diary.content}</p>
-              {isCurrentUserAuthor(diary.userId) && (
-                <div className='manage-btn'>
-                  <button className='btn delete-btn' onClick={() => handleDelete(diary.id)}>Delete</button>
-                  <button className='btn edit-btn' onClick={() => handleEditDiaryClick(diary.id)}>Edit</button>
-                </div>
-              )}
+              {editAndDeleteButtons(diary)}
             </li>
           ))}
         </ul>
