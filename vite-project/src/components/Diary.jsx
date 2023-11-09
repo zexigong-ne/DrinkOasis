@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import '../assets/css/Diary.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Diary = () => {
   const [diaries, setDiaries] = useState([]);
   const [error, setError] = useState(null);
+  const { otherId } = useParams(); 
   const navigate = useNavigate();
   const userId = checkUserLoginStatus(); // current user id
 
@@ -16,9 +18,8 @@ useEffect(() => {
       navigate('/Login');
       return;
     }
-    
-    const userToFetch = getUserIdToFetch();
-    const apiUrl = `/userApi/diaries?id=${userToFetch}`;
+
+    const apiUrl = `/userApi/diaries?id=${otherId}`;
 
     fetch(apiUrl, {
       method: 'GET',
@@ -39,7 +40,7 @@ useEffect(() => {
       .catch((error) => {
         setError(error.message);
       });
-  }, []);
+  }, [otherId]);
 
   if (error) {
     return <div>Error: {error}</div>;

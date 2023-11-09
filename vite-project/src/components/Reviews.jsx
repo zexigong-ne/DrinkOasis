@@ -81,7 +81,6 @@ function Reviews() {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
-              // Include other headers as necessary
             },
             body: JSON.stringify(editedReview),
           });
@@ -113,6 +112,10 @@ function Reviews() {
                 alert('Failed to delete the review.');
             }
         }
+    };
+
+    const navigateToUserDiary = (userId) => {
+      navigate(`/Diary/${userId}`);
     };
 
     function renderEditDeleteButtons(review) {
@@ -182,7 +185,7 @@ function Reviews() {
                         <p>Location: {review.location}</p>
                         <p>Street Address: {review.address}</p>
                         <p>Review: {review.review}</p>
-                        <p>Author: {review.authorName}</p>
+                        <p>Author: <span onClick={() => navigateToUserDiary(review.id)}>{review.authorName}</span></p>
                         {renderEditDeleteButtons(review)}
                     </div>
                     )}
