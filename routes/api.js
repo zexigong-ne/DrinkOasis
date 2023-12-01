@@ -1,3 +1,15 @@
+// I've reviewed your code for the project, and it appears to meet the main requirements quite well. 
+// The comments in api.js are a great touch and add clarity to the functionality of each API.
+// I'd suggest considering the following:
+// Comments for Components:
+// Adding comments for each component could enhance code comprehension, especially for larger projects. 
+// It helps collaborators understand the purpose and functionality of individual components.
+// Folder Name:
+// Consider using more explicit names for folders, particularly in the vite-project folder. 
+// Using names like db or database could improve organization and make it more intuitive for others to navigate.
+// Styling and CSS Files:
+// While Bootstrap styles are sufficient for Project 3, think about creating separate CSS files for each component. 
+// This practice will be beneficial for future design and user experience improvements, providing a modular and maintainable structure.
 import express from "express";
 import { reviewDB } from "../modules/reviewDB.js";
 
